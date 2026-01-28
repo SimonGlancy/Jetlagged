@@ -1,0 +1,304 @@
+.container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.crtFrame {
+  position: relative;
+  width: 100vw;
+  min-width: 800px;
+  height: 100vh;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  transform-origin: center;
+  perspective: 800px;
+  transform: rotateX(8deg) rotateY(0deg);
+}
+
+
+
+.canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  mix-blend-mode: screen;
+
+}
+
+.noiseCanvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+}
+
+.scanlines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.15) 0px,
+    rgba(0, 0, 0, 0.15) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+}
+
+.curvature {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: 8px;
+  box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.5);
+  background: radial-gradient(
+    ellipse 120% 110% at 50% 45%,
+    transparent 0%,
+    rgba(0, 0, 0, 0.15) 50%,
+    rgba(0, 0, 0, 0.4) 100%
+  );
+  clip-path: inset(0 round 8px);
+}
+
+.vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 50%,
+    rgba(0, 0, 0, 0.4) 100%
+  );
+}
+
+.glare {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.1;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.3) 0%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.1) 100%
+  );
+}
+
+.textContainer {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateZ(100px);
+  flex-direction: column;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100vw;
+}
+
+.text {
+  color: white;
+  font-weight: bold;
+  letter-spacing: 0.05em;
+  font-size: 10vw;
+  font-family: "Integral CF";
+  font-weight: bold;
+  animation: horizontalShimmer .3s ease-in-out infinite;
+}
+
+@keyframes horizontalShimmer {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(.2px);
+  }
+  50% {
+    transform: translateX(-.2px);
+  }
+  75% {
+    transform: translateX(1px);
+  }
+}
+
+@media (max-width: 768px) {
+  .text {
+
+    font-size: 6rem;
+  }
+}
+
+
+.infoOverlay {
+  position: absolute;
+  bottom: 2rem;
+  right: 2rem;
+  color: rgb(74, 222, 128);
+  font-family: monospace;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  opacity: 0.7;
+}
+
+.controls {
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  top: 25%;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.input {
+  padding: 0.5rem 1rem;
+  background-color: rgba(0, 0, 0, 0.7);
+  border: 1px solid rgba(74, 222, 128, 0.5);
+  color: rgb(74, 222, 128);
+  font-family: monospace;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  border-radius: 0.25rem;
+  outline: none;
+}
+
+.input:focus {
+  border-color: rgb(74, 222, 128);
+}
+
+.input::placeholder {
+  color: rgba(74, 222, 128, 0.3);
+}
+
+.button {
+  padding: 0.5rem 1rem;
+  background-color: rgba(74, 222, 128, 0.2);
+  border: 1px solid rgba(74, 222, 128, 0.5);
+  color: rgb(74, 222, 128);
+  font-family: monospace;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: background-color 150ms;
+}
+
+.button:hover {
+  background-color: rgba(74, 222, 128, 0.3);
+}
+
+.vhsTear {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.tearStrip {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 0, 0, 0.1) 0%,
+    rgba(0, 255, 0, 0.15) 50%,
+    rgba(0, 0, 255, 0.1) 100%
+  );
+  opacity: 0;
+  animation: vhsTearFlicker 0.3s ease-in-out infinite;
+}
+
+@keyframes vhsTearFlicker {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px) scaleY(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: translateY(0) scaleY(1.05);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(10px) scaleY(0.95);
+  }
+}
+
+.tearEffect {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 3%;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255, 0, 0, 0.2),
+    rgba(0, 255, 0, 0.3),
+    rgba(0, 0, 255, 0.2),
+    transparent
+  );
+  filter: blur(3px);
+  opacity: 0;
+  animation: vhsDisplace 0.5s ease-in-out infinite;
+}
+
+@keyframes vhsDisplace {
+  0%, 100% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+  25% {
+    opacity: 0.7;
+    transform: translateY(20px) skewX(-5deg);
+  }
+  50% {
+    opacity: 0.5;
+    transform: translateY(-20px) skewX(5deg);
+  }
+  75% {
+    opacity: 0.8;
+    transform: translateY(10px) skewX(-3deg);
+  }
+}
+
+.scanlineTear {
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  left: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.4),
+    rgba(255, 255, 255, 0.4) 2px,
+    transparent 2px,
+    transparent 4px
+  );
+  opacity: 0;
+  animation: tearScanlines 0.4s ease-in-out infinite;
+}
+
+@keyframes tearScanlines {
+  0%, 100% {
+    opacity: 0;
+    transform: translateX(0);
+  }
+  50% {
+    opacity: 0.6;
+    transform: translateX(30px);
+  }
+}
