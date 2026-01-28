@@ -114,15 +114,8 @@ export function CRTMonitor({ active = false }: { active?: boolean }) {
   const [blur, setBlur] = useState(80);
   const [noiseOpacity, setNoiseOpacity] = useState(2.5);
   const [rgbOffset, setRgbOffset] = useState(10);
-  const [layerOffset, setLayerOffset] = useState(100);
-  const [typedText, setTypedText] = useState("");
-  const [showCursor, setShowCursor] = useState(true);
-
-  const [displayText, setDisplayText] = useState("JETLAG");
-  const [animationKey, setAnimationKey] = useState(0);
+  const [layerOffset] = useState(100);
   const [tearIntensity, setTearIntensity] = useState(100);
-
-  const fullText = displayText;
 
   // Draw SMPTE color bars on canvas
   useEffect(() => {
@@ -275,7 +268,7 @@ export function CRTMonitor({ active = false }: { active?: boolean }) {
       setRgbOffset(rgbOffsetValue);
 
       // Layer offset (0 to 5px)
-      const layerOffsetValue = Math.abs(Math.sin(time * 0.6) * 5);
+      // const layerOffsetValue = Math.abs(Math.sin(time * 0.6) * 5);
       // setLayerOffset(layerOffsetValue);
 
       // VHS tear intensity (occasionally triggers tear effect)
@@ -290,30 +283,8 @@ export function CRTMonitor({ active = false }: { active?: boolean }) {
     return () => clearInterval(interval);
   }, []);
 
-  // Typing effect for text
-  useEffect(() => {
-    setTypedText(""); // Reset typed text
-    let index = 0;
-    const interval = setInterval(() => {
-      if (index < fullText.length) {
-        setTypedText(fullText.substring(0, index + 1));
-        index++;
-      } else {
-        clearInterval(interval);
-      }
-    }, 200);
 
-    return () => clearInterval(interval);
-  }, [fullText, animationKey]);
 
-  // Blinking cursor effect
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setShowCursor((prev) => !prev);
-    }, 500);
-
-    return () => clearInterval(interval);
-  }, []);
 
   return (
     <>
