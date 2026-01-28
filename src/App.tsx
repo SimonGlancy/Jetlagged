@@ -22,7 +22,6 @@ const Intro = ({ onClick }: { onClick: () => void }) => (
       text="Prozac nation"
       blur={1000}
       rgbOffset={10}
-      style={{ fontSize: "8vw", lineHeight: 1 }}
     />
   </div>
 );
