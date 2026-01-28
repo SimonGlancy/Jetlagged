@@ -16,12 +16,13 @@ const Intro = ({ onClick }: { onClick: () => void }) => (
     <img
       src={ProzacPill}
       alt="Prozac Pill"
-      style={{ width: "25vw", filter: "blur(2px)", marginBottom: 32 }}
+      className={styles.pill}
     />
     <BlurredText
       text="Prozac nation"
       blur={1000}
       rgbOffset={10}
+      style={{ fontSize: "8vw", lineHeight: 1 }}
     />
   </div>
 );
