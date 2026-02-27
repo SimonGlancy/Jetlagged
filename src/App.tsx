@@ -27,9 +27,31 @@ const Intro = ({ onClick }: { onClick: () => void }) => (
   </div>
 );
 
+const apiKey = import.meta.env.VITE_OCTOPUS_API_KEY
+const listId = import.meta.env.VITE_OCTOPUS_LIST_ID
+const baseUrl = import.meta.env.DEV ? '/email-api' : 'https://api.emailoctopus.com';
+
 function App() {
   const [inputText, setInputText] = useState("");
   const [showIntro, setShowIntro] = useState(true);
+  
+
+  const handleEmailSubmit = async() => {
+    await fetch(`${baseUrl}/lists/${listId}/contacts`, {
+      method: "POST",
+      body: JSON.stringify({
+        email_address: inputText,
+        status: "subscribed"
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${apiKey}`
+      }
+    }).then((res) => res.json())
+      .then((json) => console.log(json))
+      .catch((err) => console.error("Fetch failed:", err));
+  }
+
   return (
     <div style={{ width: "100vw", height: "100vh" }}>
       {/* <Cover /> */}
@@ -47,7 +69,7 @@ function App() {
             className={styles.input}
           />
           <button
-            onClick={() => alert(`Added: ${inputText}`)}
+            onClick={handleEmailSubmit}
             className={styles.button}
           >
             JOIN
