@@ -22,12 +22,6 @@ export default async function handler(
   const listId = process.env.VITE_OCTOPUS_LIST_ID!;
 
   try {
-
-    console.log("______B", JSON.stringify({ 
-        status: "subscribed",
-        email_address: email 
-    }), `https://emailoctopus.com/lists/${listId}/contacts`)
-
     const response = await fetch(
       `https://api.emailoctopus.com/lists/${listId}/contacts`,
       {
@@ -43,13 +37,11 @@ export default async function handler(
       }
     );
 
-    console.log("______R", response)
-
     const data = await response.json();
-    console.log("______D", data)
+
     return res.status(response.status).json(data);
   } catch (error) {
-    console.log("______E", error)
+
     return res.status(500).json({ error: 'Internal Server Error' });
   }
 }
