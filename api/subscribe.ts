@@ -38,8 +38,10 @@ export default async function handler(
     );
 
     const data = await response.json();
+    console.log("______D", data)
     return res.status(response.status).json(data);
   } catch (error) {
+    console.log("______E", error)
     return res.status(500).json({ error: 'Internal Server Error' });
   }
 }
