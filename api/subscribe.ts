@@ -26,7 +26,7 @@ export default async function handler(
     console.log("______B", JSON.stringify({ 
         status: "subscribed",
         email_address: email 
-    }))
+    }), `https://emailoctopus.com/lists/${listId}/contacts`)
 
     const response = await fetch(
       `https://emailoctopus.com/lists/${listId}/contacts`,
