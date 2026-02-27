@@ -29,7 +29,7 @@ const Intro = ({ onClick }: { onClick: () => void }) => (
 
 const apiKey = import.meta.env.VITE_OCTOPUS_API_KEY
 const listId = import.meta.env.VITE_OCTOPUS_LIST_ID
-const baseUrl = import.meta.env.DEV ? '/email-api' : 'https://api.emailoctopus.com';
+const baseUrl = import.meta.env.DEV ? '/email-api' : 'https://cors-anywhere.herokuapp.com/api.emailoctopus.com';
 
 function App() {
   const [inputText, setInputText] = useState("");
