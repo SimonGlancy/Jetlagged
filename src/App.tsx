@@ -27,9 +27,7 @@ const Intro = ({ onClick }: { onClick: () => void }) => (
   </div>
 );
 
-const apiKey = import.meta.env.VITE_OCTOPUS_API_KEY
-const listId = import.meta.env.VITE_OCTOPUS_LIST_ID
-const baseUrl = import.meta.env.DEV ? '/email-api' : 'https://cors-anywhere.herokuapp.com/api.emailoctopus.com';
+
 
 function App() {
   const [inputText, setInputText] = useState("");
@@ -37,15 +35,13 @@ function App() {
   
 
   const handleEmailSubmit = async() => {
-    await fetch(`${baseUrl}/lists/${listId}/contacts`, {
+    await fetch(`/api/subscribe`, {
       method: "POST",
       body: JSON.stringify({
-        email_address: inputText,
-        status: "subscribed"
+        email: inputText,
       }),
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${apiKey}`
       }
     }).then((res) => res.json())
       .then((json) => console.log(json))
