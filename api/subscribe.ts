@@ -43,6 +43,8 @@ export default async function handler(
       }
     );
 
+    console.log("______R", response)
+
     const data = await response.json();
     console.log("______D", data)
     return res.status(response.status).json(data);
