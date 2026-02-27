@@ -29,7 +29,7 @@ export default async function handler(
     }), `https://emailoctopus.com/lists/${listId}/contacts`)
 
     const response = await fetch(
-      `https://emailoctopus.com/lists/${listId}/contacts`,
+      `https://api.emailoctopus.com/lists/${listId}/contacts`,
       {
         method: 'POST',
         headers: {
