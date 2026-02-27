@@ -22,6 +22,12 @@ export default async function handler(
   const listId = process.env.VITE_OCTOPUS_LIST_ID!;
 
   try {
+
+    console.log("______B", JSON.stringify({ 
+        status: "subscribed",
+        email_address: email 
+    }))
+
     const response = await fetch(
       `https://emailoctopus.com/lists/${listId}/contacts`,
       {
