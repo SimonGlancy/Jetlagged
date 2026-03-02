@@ -81,7 +81,7 @@ const STRINGS = [
   "IN",
 ];
 
-const TextTyper = ({
+export const TextTyper = ({
   strings = [],
   rgbOffset,
   blur,
