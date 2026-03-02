@@ -3,7 +3,7 @@ import "./App.css";
 import { BlurredText, CRTMonitor } from "./components/CRTMonitor";
 import styles from "./components/CRTMonitor.module.css";
 import ProzacPill from "./assets/prozac_pill.png";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 const Intro = ({ onClick }: { onClick: () => void }) => (
   <div className={styles.textContainer} onClick={onClick}>
@@ -32,9 +32,13 @@ const Intro = ({ onClick }: { onClick: () => void }) => (
 function App() {
   const [inputText, setInputText] = useState("");
   const [showIntro, setShowIntro] = useState(true);
-  
+  const [success, setSuccess] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   const handleEmailSubmit = async() => {
+    setLoading(true)
+
     await fetch(`/api/subscribe`, {
       method: "POST",
       body: JSON.stringify({
@@ -44,14 +48,34 @@ function App() {
         'Content-Type': 'application/json',
       }
     }).then((res) => res.json())
-      .then((json) => console.log(json))
-      .catch((err) => console.error("Fetch failed:", err));
+      .then(() => {
+        setInputText("")
+        setLoading(false);
+        setSuccess(true);
+      })
+      .catch((err) => {
+        setLoading(false);
+        setError(true);
+        console.error("Fetch failed:", err)
+      });
   }
+
+  const strings = useMemo(() => {
+    if (!success && !error && !loading) {
+      return undefined
+    }
+
+    if (loading) {
+      return ["Loading"]
+    }
+
+    return success ? ["Thank you", "We'll be in touch"] : ["Whoops something went wrong"]
+  }, [success, error, loading])
 
   return (
     <div style={{ width: "100vw", height: "100vh" }}>
       {/* <Cover /> */}
-      <CRTMonitor active={!showIntro} />
+      <CRTMonitor active={!showIntro} strings={strings}/>
       {showIntro && <Intro onClick={() => setShowIntro(false)} />}
 
       {/* Controls */}
@@ -63,12 +87,14 @@ function App() {
             onChange={(e) => setInputText(e.target.value)}
             placeholder="Enter your email"
             className={styles.input}
+            disabled={loading}
           />
           <button
             onClick={handleEmailSubmit}
             className={styles.button}
+            disabled={loading}
           >
-            JOIN
+           {loading ? "..." : "JOIN"   } 
           </button>
         </div>
       )}

@@ -82,7 +82,7 @@ const STRINGS = [
 ];
 
 const TextTyper = ({
-  strings = STRINGS,
+  strings = [],
   rgbOffset,
   blur,
 }: {
@@ -108,7 +108,7 @@ const TextTyper = ({
   );
 };
 
-export function CRTMonitor({ active = false }: { active?: boolean }) {
+export function CRTMonitor({ active = false, strings = STRINGS }: { active?: boolean; strings?: string[] }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const noiseCanvasRef = useRef<HTMLCanvasElement>(null);
   const [blur, setBlur] = useState(80);
@@ -374,7 +374,7 @@ export function CRTMonitor({ active = false }: { active?: boolean }) {
         </div>
       </div>
 
-      {active && <TextTyper rgbOffset={rgbOffset} blur={blur} />}
+      {active && <TextTyper rgbOffset={rgbOffset} blur={blur} strings={strings} key={strings.join("-")} />}
     </>
   );
 }
