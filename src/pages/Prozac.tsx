@@ -1,10 +1,6 @@
 import { useState } from "react";
 import "../App.css";
-import {
-  BlurredText,
-  CRTMonitor,
-  FullScreenCRTMonitor,
-} from "../components/CRTMonitor";
+import { BlurredText, FullScreenCRTMonitor } from "../components/CRTMonitor";
 import styles from "../components/CRTMonitor.module.css";
 import ProzacPill from "../assets/prozac_pill.png";
 import prozacNation from "../assets/ProzacNation.wav";

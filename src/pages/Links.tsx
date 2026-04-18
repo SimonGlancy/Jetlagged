@@ -80,8 +80,7 @@ const SoundCloudEmbed = () => {
 };
 
 const Links = () => {
-  const { success, setSuccess, loading, setLoading, error, setError } =
-    useApiSideEffects();
+  const { setSuccess, loading, setLoading, setError } = useApiSideEffects();
   return (
     <Layout>
       <div className={styles.linktreeWrapper}>
