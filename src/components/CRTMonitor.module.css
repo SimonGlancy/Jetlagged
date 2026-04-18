@@ -1,7 +1,7 @@
 .container {
   position: relative;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   background-color: black;
   display: flex;
   align-items: center;
@@ -11,35 +11,34 @@
 
 .crtFrame {
   position: relative;
-  width: 100vw;
-  min-width: 800px;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
   transform-origin: center;
-  perspective: 800px;
+  /* perspective: 800px; */
   transform: rotateX(8deg) rotateY(0deg);
 }
-
-
 
 .canvas {
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
+  width: 100% !important;
+  height: 100% !important;
   mix-blend-mode: screen;
-
+  object-fit: fill;
 }
 
 .noiseCanvas {
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
+  width: 100% !important;
+  height: 100% !important;
   pointer-events: none;
   mix-blend-mode: overlay;
+  object-fit: fill;
 }
 
 .scanlines {
@@ -107,7 +106,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-  width: 100vw;
+  width: 100%;
 }
 
 .text {
@@ -117,18 +116,19 @@
   font-size: 10vw;
   font-family: "Integral CF";
   font-weight: bold;
-  animation: horizontalShimmer .3s ease-in-out infinite;
+  animation: horizontalShimmer 0.3s ease-in-out infinite;
 }
 
 @keyframes horizontalShimmer {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateX(0);
   }
   25% {
-    transform: translateX(.2px);
+    transform: translateX(0.2px);
   }
   50% {
-    transform: translateX(-.2px);
+    transform: translateX(-0.2px);
   }
   75% {
     transform: translateX(1px);
@@ -136,7 +136,7 @@
 }
 
 .pill {
-  width: 25vw;
+  width: 28vw;
   filter: blur(2px);
   /* margin-bottom: 32px */
 }
@@ -150,7 +150,6 @@
   }
 }
 
-
 .infoOverlay {
   position: absolute;
   bottom: 2rem;
@@ -163,8 +162,6 @@
 }
 
 .controls {
-  display: flex;
-  flex-direction: row;
   position: absolute;
   top: 25%;
   bottom: 0;
@@ -172,6 +169,11 @@
   right: 0;
   align-items: center;
   justify-content: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: row;
   gap: 0.75rem;
 }
 
@@ -267,7 +269,8 @@
 }
 
 @keyframes vhsDisplace {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 0;
     transform: translateY(0);
   }
@@ -302,7 +305,8 @@
 }
 
 @keyframes tearScanlines {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 0;
     transform: translateX(0);
   }

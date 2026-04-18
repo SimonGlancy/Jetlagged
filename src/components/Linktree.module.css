@@ -1,0 +1,117 @@
+.linktreeWrapper {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: var(--font-main);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 4rem 1rem;
+  gap: 2rem;
+}
+
+.linktreeHeader h1 {
+  letter-spacing: 5px;
+  font-weight: 300;
+  margin-bottom: 0.5rem;
+}
+
+.linktreeHeader p {
+  color: var(--secondary-text);
+  font-size: 0.8rem;
+  margin-bottom: 3rem;
+}
+
+.linktreeNav {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.linktreeBtn {
+  display: block;
+  text-align: center;
+  padding: 16px;
+  border-radius: 32px;
+  color: white;
+  background-color: var(--text-color);
+  text-decoration: none;
+  letter-spacing: var(--letter-spacing);
+  transition: background 0.3s ease;
+}
+
+.linktreeBtn:hover {
+  background-color: var(--btn-hover-bg);
+}
+
+/* Featured link uses the variables in reverse */
+.linktreeBtn.featured {
+  background-color: var(--accent-color);
+  color: var(--bg-color);
+}
+
+.socialIcons {
+  display: flex;
+  justify-content: center;
+  gap: var(--icon-gap, 30px); /* Fallback to 30px if variable isn't set */
+  margin-bottom: 1.5rem;
+}
+
+.socialLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.socialSvg {
+  width: var(--icon-size, 24px);
+  height: var(--icon-size, 24px);
+  fill: var(--text-color, #000); /* Uses your global CSS variable */
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.socialSvg:hover {
+  transform: translateY(-3px);
+  opacity: 0.6;
+}
+
+.footerText {
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  opacity: 0.5;
+  text-transform: uppercase;
+  font-family: var(--font-main, monospace);
+}
+
+.embedContainer {
+  width: 100%;
+  max-width: 400px; /* Keeps it aligned with your Linktree width */
+  margin: 20px 0;
+}
+
+.caption {
+  font-size: 10px;
+  color: var(--secondary-text, #cccccc);
+  line-break: anywhere;
+  word-break: normal;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-family: var(--font-main, monospace);
+  font-weight: 100;
+  margin-top: 5px;
+}
+
+.caption a {
+  color: var(--secondary-text, #cccccc);
+  text-decoration: none;
+}
+
+.caption a:hover {
+  color: var(--text-color, #000);
+}

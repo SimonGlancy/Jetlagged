@@ -1,9 +1,13 @@
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  type CSSProperties,
+  type ReactNode,
+} from "react";
 import { motion } from "motion/react";
 import styles from "./CRTMonitor.module.css";
-
-const width = 1280;
-const height = 720;
+import FullScreenWrapper from "./FullScreenWrapper";
 
 export const BlurredText = ({
   blur,
@@ -108,14 +112,40 @@ export const TextTyper = ({
   );
 };
 
-export function CRTMonitor({ active = false, strings = STRINGS }: { active?: boolean; strings?: string[] }) {
+// const BLUR = 80
+// const NOISE_OPACITY = 2.5
+// const RGB_OFFSET = 10
+// const LAYER_OFFSET = 100
+// const TEAR_INTENSITY = 100
+
+const BLUR = 8;
+const NOISE_OPACITY = 0.1;
+const RGB_OFFSET = 10;
+const LAYER_OFFSET = 50;
+const TEAR_INTENSITY = 1000;
+
+export function CRTMonitor({
+  children,
+  width = 1280,
+  height = 720,
+}: {
+  children?: ({
+    rgbOffset,
+    blur,
+  }: {
+    rgbOffset: number;
+    blur: number;
+  }) => ReactNode;
+  width?: number;
+  height?: number;
+}) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const noiseCanvasRef = useRef<HTMLCanvasElement>(null);
-  const [blur, setBlur] = useState(80);
-  const [noiseOpacity, setNoiseOpacity] = useState(2.5);
-  const [rgbOffset, setRgbOffset] = useState(10);
-  const [layerOffset] = useState(100);
-  const [tearIntensity, setTearIntensity] = useState(100);
+  const [blur, setBlur] = useState(BLUR);
+  const [noiseOpacity, setNoiseOpacity] = useState(NOISE_OPACITY);
+  const [rgbOffset, setRgbOffset] = useState(RGB_OFFSET);
+  const [layerOffset] = useState(LAYER_OFFSET);
+  const [tearIntensity, setTearIntensity] = useState(TEAR_INTENSITY);
 
   // Draw SMPTE color bars on canvas
   useEffect(() => {
@@ -250,7 +280,7 @@ export function CRTMonitor({ active = false, strings = STRINGS }: { active?: boo
     };
   }, []);
 
-  // Animate blur and noise over time
+  // // Animate blur and noise over time
   useEffect(() => {
     const interval = setInterval(() => {
       const time = Date.now() / 1000;
@@ -283,98 +313,118 @@ export function CRTMonitor({ active = false, strings = STRINGS }: { active?: boo
     return () => clearInterval(interval);
   }, []);
 
-
-
-
   return (
     <>
-      <div className={styles.container}>
-        {/* CRT Frame */}
-        <div className={styles.crtFrame}>
-          {/* Red Channel Layer - offset and blurred */}
-          <motion.canvas
-            ref={canvasRef}
-            width={width}
-            height={height}
-            className={styles.canvas}
-            style={{
-              filter: `blur(${blur * 1.2}px) brightness(1.2)`,
-              transform: `translate(${-rgbOffset}px, ${-layerOffset * 0.5}px)`,
-              opacity: 0.7,
-            }}
-          />
+      <motion.canvas
+        ref={canvasRef}
+        width={width}
+        height={height}
+        className={styles.canvas}
+        style={{
+          filter: `blur(${blur * 1.2}px) brightness(1.2)`,
+          transform: `translate(${-rgbOffset}px, ${-layerOffset * 0.5}px)`,
+          opacity: 0.1,
+        }}
+      />
 
-          {/* Green Channel Layer - base layer with medium blur */}
-          <motion.canvas
-            ref={canvasRef}
-            width={width}
-            height={height}
-            className={styles.canvas}
-            style={{
-              filter: `blur(${blur}px) brightness(1.1)`,
-              transform: `translate(0px, ${layerOffset}px)`,
-              opacity: 0.8,
-            }}
-          />
+      {/* Green Channel Layer - base layer with medium blur */}
+      <motion.canvas
+        ref={canvasRef}
+        width={width}
+        height={height}
+        className={styles.canvas}
+        style={{
+          filter: `blur(${blur}px) brightness(1.1)`,
+          transform: `translate(0px, ${layerOffset}px)`,
+          opacity: 1,
+        }}
+      />
 
-          {/* Blue Channel Layer - offset opposite direction */}
-          <motion.canvas
-            ref={canvasRef}
-            width={width}
-            height={height}
-            className={styles.canvas}
-            style={{
-              filter: `blur(${blur * 0.8}px) brightness(1.15)`,
-              transform: `translate(${rgbOffset}px, ${layerOffset * 0.7}px)`,
-              opacity: 0.75,
-            }}
-          />
+      {/* Blue Channel Layer - offset opposite direction */}
+      <motion.canvas
+        ref={canvasRef}
+        width={width}
+        height={height}
+        className={styles.canvas}
+        style={{
+          filter: `blur(${blur * 0.8}px) brightness(1.15)`,
+          transform: `translate(${rgbOffset}px, ${layerOffset * 0.7}px)`,
+          opacity: 1,
+        }}
+      />
 
-          {/* Noise Overlay */}
-          <motion.canvas
-            ref={noiseCanvasRef}
-            width={width}
-            height={height}
-            className={styles.noiseCanvas}
-            style={{
-              opacity: noiseOpacity,
-            }}
-          />
+      {/* Noise Overlay */}
+      <motion.canvas
+        ref={noiseCanvasRef}
+        width={width}
+        height={height}
+        className={styles.noiseCanvas}
+        style={{
+          opacity: noiseOpacity,
+        }}
+      />
 
-          {/* Scanlines */}
-          <div className={styles.scanlines} />
+      {/* Scanlines */}
+      {/* <div className={styles.scanlines} /> */}
 
-          {/* Screen curvature effect */}
-          <div className={styles.curvature} />
+      {/* Screen curvature effect */}
+      <div className={styles.curvature} />
 
-          {/* Vignette */}
-          <div className={styles.vignette} />
+      {/* Vignette */}
+      <div className={styles.vignette} />
 
-          {/* Screen reflection/glare */}
-          <div className={styles.glare} />
+      {/* Screen reflection/glare */}
+      <div className={styles.glare} />
 
-          {/* VHS Tear Effect */}
+      {/* VHS Tear Effect */}
 
-          <div className={styles.vhsTear} style={{ opacity: tearIntensity }}>
-            <div
-              className={styles.tearEffect}
-              style={{
-                top: `${Math.random() * 60 + 20}%`,
-                opacity: tearIntensity * 0.7,
-              }}
-            />
-            <div
-              className={styles.scanlineTear}
-              style={{
-                top: `${Math.random() * 80}%`,
-                opacity: tearIntensity * 0.5,
-              }}
-            />
-          </div>
-        </div>
+      <div className={styles.vhsTear} style={{ opacity: tearIntensity }}>
+        <div
+          className={styles.tearEffect}
+          style={{
+            top: `${Math.random() * 60 + 20}%`,
+            opacity: tearIntensity * 0.7,
+          }}
+        />
+        <div
+          className={styles.scanlineTear}
+          style={{
+            top: `${Math.random() * 80}%`,
+            opacity: tearIntensity * 0.5,
+          }}
+        />
       </div>
 
-      {active && <TextTyper rgbOffset={rgbOffset} blur={blur} strings={strings} key={strings.join("-")} />}
+      {children?.({ rgbOffset, blur })}
+    </>
+  );
+}
+
+export function FullScreenCRTMonitor({
+  active = false,
+  strings = STRINGS,
+}: {
+  active?: boolean;
+  strings?: string[];
+}) {
+  return (
+    <>
+      <FullScreenWrapper>
+        <CRTMonitor>
+          {({ rgbOffset, blur }) => (
+            <>
+              {active && (
+                <TextTyper
+                  rgbOffset={rgbOffset}
+                  blur={blur}
+                  strings={strings}
+                  key={strings.join("-")}
+                />
+              )}
+            </>
+          )}
+        </CRTMonitor>
+      </FullScreenWrapper>
     </>
   );
 }

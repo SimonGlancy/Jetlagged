@@ -2,5 +2,93 @@
   padding: 0;
   max-width: 1280px;
   text-align: center;
+  --icon-size: 24px;
+  --icon-gap: 30px;
+  --text-color: rgb(74, 222, 128);
 }
 
+.linktree-footer {
+  margin-top: 4rem;
+  padding-bottom: 2rem;
+  text-align: center;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: var(--icon-gap);
+  margin-bottom: 1rem;
+}
+
+.social-svg {
+  width: var(--icon-size);
+  height: var(--icon-size);
+  fill: var(--text-color); /* Matches your brand text color */
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.social-svg:hover {
+  transform: translateY(-3px);
+  opacity: 0.7;
+}
+
+.footer-text {
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  opacity: 0.5;
+  text-transform: uppercase;
+}
+
+.linktree-wrapper {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: var(--font-main);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 4rem 1rem;
+}
+
+.linktree-header h1 {
+  letter-spacing: 5px;
+  font-weight: 300;
+  margin-bottom: 0.5rem;
+}
+
+.linktree-header p {
+  color: var(--secondary-text);
+  font-size: 0.8rem;
+  margin-bottom: 3rem;
+}
+
+.linktree-nav {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.linktree-btn {
+  display: block;
+  text-align: center;
+  padding: var(--btn-padding);
+  border: var(--btn-border);
+  color: var(--text-color);
+  text-decoration: none;
+  letter-spacing: var(--letter-spacing);
+  transition: background 0.3s ease;
+}
+
+.linktree-btn:hover {
+  background-color: var(--btn-hover-bg);
+}
+
+/* Featured link uses the variables in reverse */
+.linktree-btn.featured {
+  background-color: var(--accent-color);
+  color: var(--bg-color);
+}
