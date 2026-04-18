@@ -44,11 +44,13 @@ export const TypedText = ({
   rgbOffset,
   blur,
   onComplete,
+  style,
 }: {
   text: string;
   rgbOffset: number;
   blur: number;
   onComplete?: () => void;
+  style?: CSSProperties;
 }) => {
   const [typedText, setTypedText] = useState("");
 
@@ -69,7 +71,12 @@ export const TypedText = ({
   }, [text, typedText.length, onComplete]);
   return (
     <div className={styles.textContainer}>
-      <BlurredText text={typedText} rgbOffset={rgbOffset} blur={blur} />
+      <BlurredText
+        text={typedText}
+        rgbOffset={rgbOffset}
+        blur={blur}
+        style={style}
+      />
     </div>
   );
 };
@@ -89,10 +96,12 @@ export const TextTyper = ({
   strings = [],
   rgbOffset,
   blur,
+  style,
 }: {
   strings?: string[];
   rgbOffset: number;
   blur: number;
+  style?: CSSProperties;
 }) => {
   const [currentStringIndex, setCurrentStringIndex] = useState(0);
 
@@ -108,6 +117,7 @@ export const TextTyper = ({
       blur={blur}
       onComplete={handleComplete}
       key={strings[currentStringIndex]}
+      style={style}
     />
   );
 };

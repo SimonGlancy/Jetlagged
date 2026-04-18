@@ -100,6 +100,7 @@ const Links = () => {
                 rgbOffset={rgbOffset}
                 blur={blur}
                 strings={["Jetlag"]}
+                style={{ fontSize: 60 }}
               />
             )}
           </CRTMonitor>
