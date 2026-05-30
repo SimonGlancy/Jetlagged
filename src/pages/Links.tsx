@@ -1,7 +1,6 @@
 import { AppleMusicIcon } from "../components/AppleMusicLogo";
 import { CRTMonitor, TextTyper } from "../components/CRTMonitor";
 import { DeezerIcon } from "../components/DeezerLogo";
-
 import Layout from "../components/Layout";
 import styles from "../components/Linktree.module.css";
 import SpotifyEmbed from "../components/SpotifyEmbed";
@@ -90,7 +89,6 @@ const Links = () => {
         </div>
         <SpotifyEmbed />
 
-        {/* <SoundCloudEmbed /> */}
         <h3>Steam Prozac nation now</h3>
         <nav className={styles.linktreeNav}>
           {links.map((link, i) => (
