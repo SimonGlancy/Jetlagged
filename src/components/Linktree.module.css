@@ -31,19 +31,25 @@
 }
 
 .linktreeBtn {
-  display: block;
+  display: flex;
   text-align: center;
   padding: 16px;
-  border-radius: 32px;
+  border-radius: 4px;
   color: white;
   background-color: var(--text-color);
   text-decoration: none;
   letter-spacing: var(--letter-spacing);
   transition: background 0.3s ease;
+  cursor: pointer;
+  align-items: center;
+  font-size: 24px;
+  font-weight: bold;
+  gap: 4px;
+  height: 40px;
 }
 
 .linktreeBtn:hover {
-  background-color: var(--btn-hover-bg);
+  color: white;
 }
 
 /* Featured link uses the variables in reverse */

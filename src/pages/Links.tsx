@@ -1,13 +1,28 @@
+import { AppleMusicIcon } from "../components/AppleMusicLogo";
 import { CRTMonitor, TextTyper } from "../components/CRTMonitor";
+import { DeezerIcon } from "../components/DeezerLogo";
 
 import Layout from "../components/Layout";
 import styles from "../components/Linktree.module.css";
+import { SpotifyIcon } from "../components/SpotifyLogo";
 import { Signup, useApiSideEffects } from "./Home";
 const links = [
   {
-    title: "Prozac Nation Pre-save",
-    url: "https://distrokid.com/hyperfollow/jetlag19/prozac-nation",
-    featured: true,
+    title: "Spotify",
+    url: "https://open.spotify.com/album/4DQmARXsPM5KiDFGie6V60",
+    icon: <SpotifyIcon size={32} />,
+  },
+  {
+    title: "",
+    url: "https://music.apple.com/us/album/prozac-nation/1893604579?i=1893604580",
+    icon: <AppleMusicIcon size={42} />,
+    color: "#d60017",
+  },
+  {
+    title: "Deezer",
+    url: "https://www.deezer.com/en/album/961930551",
+    icon: <DeezerIcon size={42} />,
+    color: "#A238FF",
   },
 ];
 
@@ -79,6 +94,19 @@ const SoundCloudEmbed = () => {
   );
 };
 
+const SpotifyEmbed = () => (
+  <iframe
+    data-testid="embed-iframe"
+    style={{ borderRadius: 12 }}
+    src="https://open.spotify.com/embed/album/4DQmARXsPM5KiDFGie6V60?utm_source=generator&theme=0"
+    width="100%"
+    height="152"
+    frameBorder="0"
+    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+    loading="lazy"
+  />
+);
+
 const Links = () => {
   const { setSuccess, loading, setLoading, setError } = useApiSideEffects();
   return (
@@ -105,12 +133,19 @@ const Links = () => {
             )}
           </CRTMonitor>
         </div>
+        <SpotifyEmbed />
 
-        <SoundCloudEmbed />
+        {/* <SoundCloudEmbed /> */}
+        <h3>Steam Prozac nation now</h3>
         <nav className={styles.linktreeNav}>
           {links.map((link, i) => (
-            <a key={i} href={link.url} className={styles.linktreeBtn}>
-              {link.title}
+            <a
+              key={i}
+              href={link.url}
+              className={styles.linktreeBtn}
+              style={{ backgroundColor: link.color }}
+            >
+              {link.icon} {link.title}
             </a>
           ))}
         </nav>
