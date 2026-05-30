@@ -4,6 +4,7 @@ import { DeezerIcon } from "../components/DeezerLogo";
 
 import Layout from "../components/Layout";
 import styles from "../components/Linktree.module.css";
+import SpotifyEmbed from "../components/SpotifyEmbed";
 import { SpotifyIcon } from "../components/SpotifyLogo";
 import { Signup, useApiSideEffects } from "./Home";
 const links = [
@@ -60,52 +61,6 @@ const Footer = () => {
     </footer>
   );
 };
-
-const SoundCloudEmbed = () => {
-  return (
-    <div className={styles.embedContainer}>
-      <iframe
-        width="100%"
-        height="20"
-        scrolling="no"
-        frameBorder="no" // React uses camelCase for this
-        allow="autoplay"
-        src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2297381831&color=%23000000&inverse=true&auto_play=false&show_user=true"
-        title="Jetlagged SoundCloud Player"
-      />
-      <div className={styles.caption}>
-        <a
-          href="https://soundcloud.com/jetlagged-world"
-          target="_blank"
-          rel="noreferrer"
-        >
-          Jetlagged
-        </a>
-        {" · "}
-        <a
-          href="https://soundcloud.com/jetlagged-world/prozac-nation"
-          target="_blank"
-          rel="noreferrer"
-        >
-          Prozac Nation
-        </a>
-      </div>
-    </div>
-  );
-};
-
-const SpotifyEmbed = () => (
-  <iframe
-    data-testid="embed-iframe"
-    style={{ borderRadius: 12 }}
-    src="https://open.spotify.com/embed/album/4DQmARXsPM5KiDFGie6V60?utm_source=generator&theme=0"
-    width="100%"
-    height="152"
-    frameBorder="0"
-    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-    loading="lazy"
-  />
-);
 
 const Links = () => {
   const { setSuccess, loading, setLoading, setError } = useApiSideEffects();
