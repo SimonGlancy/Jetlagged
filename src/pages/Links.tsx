@@ -64,7 +64,7 @@ const Footer = () => {
 const Links = () => {
   const { setSuccess, loading, setLoading, setError } = useApiSideEffects();
   return (
-    <Layout>
+    <Layout withScroll>
       <div className={styles.linktreeWrapper}>
         <div
           style={{
@@ -89,7 +89,7 @@ const Links = () => {
         </div>
         <SpotifyEmbed />
 
-        <h3>Steam Prozac nation now</h3>
+        <h3>Steam Prozac Nation now</h3>
         <nav className={styles.linktreeNav}>
           {links.map((link, i) => (
             <a

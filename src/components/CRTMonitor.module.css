@@ -9,6 +9,14 @@
   overflow: hidden;
 }
 
+.scrollContainer {
+  position: relative;
+  background-color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .crtFrame {
   position: relative;
   width: 100%;
